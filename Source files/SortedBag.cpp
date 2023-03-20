@@ -1,5 +1,6 @@
 #include "../Header files/SortedBag.h"
 #include "../Header files/SortedBagIterator.h"
+#include <iostream>
 
 
 SortedBag::SortedBag(Relation r) {
@@ -141,7 +142,7 @@ void SortedBag::shrink()
 	// Change the references to the new arrays.
 	this->elements = newElementsArray;
 	this->frequencies = newFrequenciesArray;
-	this->length = this->elementsNotDeleted;
+	this->length = index;
 }
 
 
@@ -164,13 +165,14 @@ bool SortedBag::remove(TComp e) {
 				this->frequencies[middle]--;
 				this->bagSize--;
 
-				// If we have a lot of unused memory, allocate a smaller area of memory and copy the data. O(n)
-				if (this->elementsNotDeleted < this->capacity / 4)
-					this->shrink();
-
 				// If an element has a frequency of 0, it is considered deleted.
 				if (this->frequencies[middle] == 0 && this->elementsNotDeleted > 1)
 					this->elementsNotDeleted--;
+
+				// If we have a lot of unused memory, allocate a smaller area of memory and copy the data. O(n)
+				// std::cout << " " << this->capacity << " " << this->length << " " << this->elementsNotDeleted << std::endl;
+				if (this->elementsNotDeleted == this->capacity / 4 && this->elementsNotDeleted > 1)
+					this->shrink();
 
 				return true;
 			}
