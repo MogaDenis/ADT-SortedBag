@@ -3,6 +3,7 @@
 #include <iostream>
 
 
+// Constructor.
 SortedBag::SortedBag(Relation r) {
 	this->capacity = 1;
 	this->bagSize = 0;
@@ -16,10 +17,27 @@ SortedBag::SortedBag(Relation r) {
 }
 
 
-// Best case: 	 O(1) - the bag is empty
-// Average case: O(log n) - the element already exists in the bag, only the frequency is increased.
-//				 O(n) - the element is not in the bag, so we need to make room for it by shifting other values.
-// Worst case:   O(n) - the bag is full so we need memory reallocation, then check if the element is in the bag and add it. 
+// Copy constructor. 
+SortedBag::SortedBag(const SortedBag& sortedBag)
+{
+	capacity = sortedBag.capacity;
+	bagSize = sortedBag.bagSize;
+	length = sortedBag.length;
+	elementsNotDeleted = sortedBag.elementsNotDeleted;
+
+	elements = sortedBag.elements;
+	frequencies = sortedBag.frequencies;
+
+	relationBetweenElements = sortedBag.relationBetweenElements;
+}
+
+
+// Best case: 	 Theta(1) - the bag is empty
+// Average case: Theta(log n) - the element already exists in the bag, only the frequency is increased.
+//				 Theta(n) - the element is not in the bag, so we need to make room for it by shifting other values.
+// Worst case:   Theta(n) - the bag is full so we need memory reallocation, then check if the element is in the bag and add it. 
+
+// Total time complexity: O(n)
 void SortedBag::add(TComp e) {
 	if (this->length == 0)
 	{
@@ -146,9 +164,11 @@ void SortedBag::shrink()
 }
 
 
-// Best case: 	 O(1) - the element to delete is in the middle of the bag.
-// Average case: O(log n) - the element is either in the bag or not. 
-// Worst case:   O(n) - the number of elements is a quarter of the capacity, so we need to shrink the bag.
+// Best case: 	 Theta(1) - the element to delete is in the middle of the bag.
+// Average case: Theta(log n) - the element is either in the bag or not (binary search). 
+// Worst case:   Theta(n) - the number of elements is a quarter of the capacity, so we need to shrink the bag.
+
+// Total time complexity: O(n)
 bool SortedBag::remove(TComp e) {
 	// Search the element using binary search.
 	int left = 0, right = this->length - 1;
@@ -190,8 +210,10 @@ bool SortedBag::remove(TComp e) {
 }
 
 
-// Theta(log n) - worst case, element is not present.
+// Theta(log n) - worst/average case, element is not in the bag.
 // Theta(1) - best case, element is right in the middle.
+
+// Total time complexity: O(log n)
 bool SortedBag::search(TComp elem) const {
 	// Search the element using binary search.
 	int left = 0, right = this->length - 1;
@@ -219,8 +241,10 @@ bool SortedBag::search(TComp elem) const {
 }
 
 
-// Theta(log n) - worst case, element is not present.
+// Theta(log n) - worst/average case, element is not in the bag.
 // Theta(1) - best case, element is right in the middle.
+
+// Total time complexity: O(log n)
 int SortedBag::nrOccurrences(TComp elem) const {
 	// Search the element using binary search.
 	int left = 0, right = this->length - 1;
@@ -243,23 +267,25 @@ int SortedBag::nrOccurrences(TComp elem) const {
 }
 
 
-// Theta(1) - time complexity
+// Theta(1) 
 int SortedBag::size() const {
 	return this->bagSize;
 }
 
 
-// Theta(1) - time complexity
+// Theta(1) 
 bool SortedBag::isEmpty() const {
 	return this->bagSize == 0;
 }
 
 
+// Iterator.
 SortedBagIterator SortedBag::iterator() const {
 	return SortedBagIterator(*this);
 }
 
 
+// Destructor.
 SortedBag::~SortedBag() {
 	delete[] this->elements;
 	delete[] this->frequencies;

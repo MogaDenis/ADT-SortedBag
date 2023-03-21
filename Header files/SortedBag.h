@@ -28,6 +28,9 @@ public:
 	//constructor
 	SortedBag(Relation r);
 
+	// Copy constructor.
+	SortedBag(const SortedBag& sortedBag);
+
 	//adds an element to the sorted bag
 	void add(TComp e);
 
