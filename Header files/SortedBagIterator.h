@@ -19,5 +19,6 @@ public:
 	bool valid();
 	void next();
 	void first();
+	void jumpForward(int k);
 };
 

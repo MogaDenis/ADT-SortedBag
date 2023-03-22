@@ -41,3 +41,12 @@ void SortedBagIterator::first() {
 	this->currentElementFrequency = 1;
 }
 
+void SortedBagIterator::jumpForward(int k)
+{
+	if (k <= 0)
+		throw std::exception();
+
+	for (int i = 0; i < k; i++)
+		this->next();
+}
+
