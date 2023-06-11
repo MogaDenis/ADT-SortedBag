@@ -1,7 +1,7 @@
 # ADT-SortedBag
 Implementation in C++ of a Sorted Bag ADT.
 
-The Sorted Bag is represented as a dynammic array and a frequency array. Values and frequencies are associated by the same indices.
+The Sorted Bag is represented on a dynammic array and a frequency array. Values and frequencies are associated by the same indices.
 
 The Sorted Bag includes in its interface the following:
   - Add a new element
